@@ -22,7 +22,7 @@ class _GirisYapSayfasiState extends State<GirisYapSayfasi> {
   static const Color _backgroundLight = Color(0xFFF9FAFB);
   static const Color _textDark = Color(0xFF333333);
 
-  // ✅ İSTEDİĞİN ÖZELLİK: Canlı Şifre Kontrolü
+  //Canlı Şifre Kontrolü
   void _sifreKontrol(String value) {
     setState(() {
       if (value.isEmpty) {
@@ -107,7 +107,7 @@ class _GirisYapSayfasiState extends State<GirisYapSayfasi> {
               const SizedBox(height: 32),
 
               const Text(
-                "Tekrar Hoş Geldiniz! 👋",
+                "Tekrar Hoş Geldiniz! ",
                 style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: _textDark),
               ),
               const SizedBox(height: 8),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'dart:io';
 import 'package:google_fonts/google_fonts.dart';// SSL sertifikası için (HttpOverrides)
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 // Sayfalar
 import 'giris.dart';
 import 'ana_sayfa.dart';
@@ -16,18 +16,19 @@ class MyHttpOverrides extends HttpOverrides {
       ..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
   }
 }
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // İŞTE EKSİK OLAN SATIR BURASI! Önce gizli dosyayı yüklüyoruz.
+  await dotenv.load(fileName: ".env");
 
   // SSL Sertifika kontrolünü devre dışı bırak (Okul sitesi için gerekli olabilir)
   HttpOverrides.global = MyHttpOverrides();
 
   // Supabase Başlatma
   await Supabase.initialize(
-      url: 'https://eoqswyxtzfuzpyzlqeef.supabase.co', // <-- KENDİ URL'İNİ KONTROL ET
-      anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVvcXN3eXh0emZ1enB5emxxZWVmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM0Mjk4NTksImV4cCI6MjA3OTAwNTg1OX0.Jb1iWu9VADf1fv9W7dFoR3Rigg6tzzu-D-4PjM_4PE4'
-    // <-- KENDİ KEY'İNİ KONTROL ET
+    url: dotenv.env['SUPABASE_URL']!,
+    anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
   );
 
   runApp(const MyApp());
